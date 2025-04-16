@@ -6,6 +6,8 @@ import createError from "http-errors";
 import cookieParser from "cookie-parser";
 import { errorResponse } from "./utils/response.js";
 import { port } from "./config/config.js";
+import connectToDB from "./config/connectToDB.js";
+import authRouter from "./routers/authRouter.js";
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.use("/api/v1", authRouter);
+
 //error handling middleware
 
 app.use((req, res, next) => {
@@ -40,4 +44,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, async () => {
   console.log(`Server is running on http://localhost:${port}`);
+  await connectToDB();
 });
