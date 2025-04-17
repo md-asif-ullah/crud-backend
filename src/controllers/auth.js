@@ -5,7 +5,7 @@ import { envirment, jwtSecret } from "../config/config.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-const userSingUp = async (req, res, next) => {
+const userSignUp = async (req, res, next) => {
   try {
     const data = req.body;
 
@@ -54,7 +54,7 @@ const userSingUp = async (req, res, next) => {
   }
 };
 
-const userSingin = async (req, res, next) => {
+const userSignin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -124,4 +124,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-export { userSingUp, userSingin, verifyToken };
+export { userSignUp, userSignin, verifyToken };

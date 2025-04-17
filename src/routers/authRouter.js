@@ -1,10 +1,10 @@
 import express from "express";
-import { userSingin, userSingUp, verifyToken } from "../controllers/auth.js";
+import { userSignin, userSignUp, verifyToken } from "../controllers/auth.js";
 
 const authRouter = express.Router();
 
-authRouter.post("/signup", userSingUp);
-authRouter.post("/signin", userSingin);
+authRouter.post("/signup", userSignUp);
+authRouter.post("/signin", userSignin);
 authRouter.get("/profile", verifyToken);
 
 export default authRouter;
