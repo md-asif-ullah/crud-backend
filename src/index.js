@@ -16,10 +16,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["https://crud-frontendapp.netlify.app" || "http://localhost:5173"],
+    origin: [origin, "http://localhost:5173"],
     credentials: true,
   })
 );
+
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("dev"));
