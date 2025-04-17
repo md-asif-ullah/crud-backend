@@ -9,6 +9,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const jwtRefreshTokenSecret = process.env.JWT_REFRESH_SECRET;
 const Expiration = process.env.JWT_EXPIRATION;
 const refreshTokenExpiration = process.env.JWT_REFRESH_EXPIRATION;
+const origin = process.env.ORIGIN;
 
 export {
   port,
@@ -18,4 +19,5 @@ export {
   jwtRefreshTokenSecret,
   Expiration,
   refreshTokenExpiration,
+  origin,
 };

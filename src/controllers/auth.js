@@ -1,7 +1,7 @@
 import User from "../models/userModel.js";
 import { errorResponse, successResponse } from "../utils/response.js";
 import "dotenv/config.js";
-import { jwtSecret } from "../config/config.js";
+import { envirment, jwtSecret } from "../config/config.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -39,7 +39,8 @@ const userSingUp = async (req, res, next) => {
     res.cookie("token", token, {
       maxAge: 3600000,
       httpOnly: true,
-      secure: true,
+      secure: envirment,
+      path: "/",
       sameSite: "none",
     });
 
@@ -81,7 +82,8 @@ const userSingin = async (req, res, next) => {
     res.cookie("token", token, {
       maxAge: 3600000,
       httpOnly: true,
-      secure: true,
+      secure: envirment,
+      path: "/",
       sameSite: "none",
     });
 
@@ -98,4 +100,28 @@ const userSingin = async (req, res, next) => {
   }
 };
 
-export { userSingUp, userSingin };
+const verifyToken = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized: No token" });
+    }
+
+    const decoded = jwt.verify(token, jwtSecret);
+
+    // Optionally fetch user info from DB
+    const user = await User.findOne({ email: decoded.email }).select(
+      "-password"
+    );
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized: User not found" });
+    }
+
+    return successResponse(res, { statusCode: 200, payload: user });
+  } catch (error) {
+    return res.status(401).json({ message: "Unauthorized: Invalid token" });
+  }
+};
+
+export { userSingUp, userSingin, verifyToken };
