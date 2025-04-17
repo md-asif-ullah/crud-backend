@@ -8,6 +8,7 @@ import { errorResponse } from "./utils/response.js";
 import { origin, port } from "./config/config.js";
 import connectToDB from "./config/connectToDB.js";
 import authRouter from "./routers/authRouter.js";
+import itemRoutes from "./routers/itemRoutes.js";
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", authRouter);
+app.use("/api/v1", itemRoutes);
 
 //error handling middleware
 
