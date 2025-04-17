@@ -5,7 +5,7 @@ import cors from "cors";
 import createError from "http-errors";
 import cookieParser from "cookie-parser";
 import { errorResponse } from "./utils/response.js";
-import { origin, port } from "./config/config.js";
+import { port } from "./config/config.js";
 import connectToDB from "./config/connectToDB.js";
 import authRouter from "./routers/authRouter.js";
 import itemRoutes from "./routers/itemRoutes.js";
@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: [origin, "http://localhost:5173"],
+    origin: ["https://crud-frontendapp.netlify.app", "http://localhost:5173"],
     credentials: true,
   })
 );
